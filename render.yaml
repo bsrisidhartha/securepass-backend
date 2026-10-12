@@ -4,6 +4,17 @@ services:
     env: docker
     plan: free
     dockerfilePath: Dockerfile
+    healthCheckPath: /api/password/analyze
     envVars:
       - key: PORT
         value: 10000
+      - key: DB_URL
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: DB_DRIVER
+        value: com.mysql.cj.jdbc.Driver
+      - key: JPA_DDL
+        value: update
