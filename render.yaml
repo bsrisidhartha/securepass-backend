@@ -4,7 +4,7 @@ services:
     env: docker
     plan: free
     dockerfilePath: Dockerfile
-    healthCheckPath: /api/password/analyze
+    healthCheckPath: /api/password/health
     envVars:
       - key: PORT
         value: 10000

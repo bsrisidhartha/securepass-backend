@@ -7,19 +7,26 @@ import java.util.*;
 @RestController
 @RequestMapping("/api/password")
 @CrossOrigin(
-    origins = {
-        "http://localhost:5173",
-        "http://localhost:3000",
-        "https://securepass-frontend-seven.vercel.app"
-    }
+    originPatterns = {
+        "https://*.vercel.app",
+        "http://localhost:*",
+        "https://localhost:*"
+    },
+    allowedHeaders = "*",
+    methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS}
 )
 public class PasswordController {
 
+    @GetMapping("/health")
+    public Map<String, String> health() {
+        return Collections.singletonMap("status", "UP");
+    }
+
     @PostMapping("/analyze")
     public Map<String, Object> analyzePassword(
-            @RequestBody Map<String, String> request) {
+            @RequestBody(required = false) Map<String, String> request) {
 
-        String password = request.getOrDefault("password", "");
+        String password = request != null ? request.getOrDefault("password", "") : "";
 
         int score = 0;
         List<String> checks = new ArrayList<>();
